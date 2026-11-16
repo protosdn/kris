@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Крістіна Присяжнюк</title>
+<meta name="description" content="Крістіна Присяжнюк — українська співачка й авторка пісень. Музика, відео, соцмережі, запрошення на виступ.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#09080a;
+    --ink:#f3ede6;
+    --ink-soft:#a39c96;
+    --line:rgba(243,237,230,.12);
+    --card:rgba(243,237,230,.045);
+    --wine:#7e162f;
+    --wine-deep:#450d1d;
+    --accent-soft:#e2b7a0;
+    --radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    min-height:100vh;
+    display:flex;justify-content:center;
+    padding:30px 20px 56px;
+    position:relative;overflow-x:hidden;
+  }
+  body::after{
+    content:'';position:fixed;inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+    opacity:.05;mix-blend-mode:overlay;pointer-events:none;z-index:3;
+  }
+  main{width:100%;max-width:412px;position:relative;z-index:2}
+
+  /* ——— шапка: силует на бордовому градієнті ——— */
+  .hero{position:relative;text-align:center;margin-bottom:30px}
+  .glow{
+    position:absolute;left:50%;top:-56px;transform:translateX(-50%);
+    width:640px;height:540px;pointer-events:none;z-index:0;
+    background:radial-gradient(ellipse 50% 44% at 50% 40%, rgba(142,27,53,.95) 0%, rgba(104,18,40,.75) 34%, rgba(64,11,27,.42) 58%, rgba(9,8,10,0) 76%);
+  }
+  .artist{
+    position:relative;z-index:1;
+    display:block;width:304px;max-width:88%;
+    height:auto;aspect-ratio:700/717;
+    margin:0 auto -44px;
+    filter:drop-shadow(0 26px 42px rgba(0,0,0,.6));
+  }
+  h1{
+    position:relative;z-index:2;
+    font-family:'Playfair Display',serif;
+    font-weight:600;font-size:31px;line-height:1.14;
+    text-shadow:0 2px 22px rgba(9,8,10,.9);
+  }
+  .tagline{
+    position:relative;z-index:2;
+    margin:13px auto 0;max-width:360px;
+    font-size:13.5px;line-height:1.65;color:var(--ink-soft);
+  }
+
+  /* ——— список посилань ——— */
+  .links{position:relative;display:flex;flex-direction:column;gap:9px;margin-bottom:12px}
+  .pill{
+    position:absolute;left:0;right:0;top:0;height:0;
+    border-radius:var(--radius);
+    background:linear-gradient(135deg, rgba(142,27,53,.62), rgba(69,13,29,.34));
+    border:1px solid rgba(226,183,160,.26);
+    box-shadow:0 12px 30px rgba(126,22,47,.34);
+    opacity:0;pointer-events:none;z-index:0;
+    transition:transform .34s cubic-bezier(.22,1,.36,1),
+               height .34s cubic-bezier(.22,1,.36,1),
+               opacity .22s ease;
+  }
+  .links.active .pill{opacity:1}
+
+  .link{
+    position:relative;z-index:1;
+    display:flex;align-items:center;gap:13px;
+    padding:15px 17px;text-decoration:none;color:var(--ink);
+    background:var(--card);border:1px solid var(--line);
+    border-radius:var(--radius);
+    transition:background .25s ease, border-color .25s ease, transform .25s ease;
+  }
+  .links.active .link{background:rgba(243,237,230,.02)}
+  .link.on{background:transparent;border-color:rgba(226,183,160,.3);transform:translateX(2px)}
+
+  .ico{
+    --c:var(--accent-soft);
+    width:34px;height:34px;flex:0 0 34px;border-radius:10px;
+    display:grid;place-items:center;
+    background:rgba(243,237,230,.07);border:1px solid var(--line);
+    transition:border-color .25s ease, box-shadow .25s ease, background .25s ease;
+  }
+  .ico svg{width:17px;height:17px;stroke:var(--c);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:stroke .25s ease}
+  .link.on .ico{
+    --c:var(--brand);
+    border-color:var(--brand);
+    background:rgba(243,237,230,.03);
+    box-shadow:0 0 20px -7px var(--brand);
+  }
+  .link .txt{flex:1;min-width:0}
+  .link .name{font-size:14.5px;font-weight:500;line-height:1.3}
+  .link .meta{font-size:11.5px;color:var(--ink-soft);margin-top:2px}
+  .link .chev{width:15px;height:15px;stroke:var(--ink-soft);fill:none;stroke-width:1.8;flex:0 0 15px;transition:transform .25s ease, stroke .25s ease}
+  .link.on .chev{transform:translateX(4px);stroke:var(--ink)}
+
+  button.link{width:100%;font:inherit;text-align:left;cursor:pointer}
+
+  /* ——— галерея презентації ——— */
+  .gal{position:fixed;inset:0;z-index:60;display:none;background:#070506}
+  .gal.open{display:flex;flex-direction:column}
+  .gal-top{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 16px;color:var(--ink-soft);font-size:12.5px;letter-spacing:.04em;
+  }
+  .gal-close{background:none;border:none;color:var(--ink-soft);font:inherit;font-size:13px;cursor:pointer;padding:6px 10px}
+  .gal-close:hover{color:var(--ink)}
+  .gal-stage{position:relative;flex:1;min-height:0;display:grid;place-items:center;padding:0 10px;overflow:auto}
+  .gal-stage img{
+    max-width:100%;max-height:100%;border-radius:10px;
+    box-shadow:0 24px 60px rgba(0,0,0,.65);
+    cursor:zoom-in;
+    -webkit-user-drag:none;user-select:none;
+  }
+  .gal-stage.zoomed{place-items:start center;padding:0}
+  .gal-stage.zoomed img{max-width:none;max-height:none;width:240%;border-radius:0;cursor:zoom-out}
+  .nav{
+    position:absolute;top:50%;transform:translateY(-50%);
+    width:42px;height:42px;border-radius:50%;
+    background:rgba(243,237,230,.08);border:1px solid var(--line);
+    display:grid;place-items:center;cursor:pointer;
+    transition:background .2s ease, opacity .2s ease;
+  }
+  .nav:hover{background:rgba(243,237,230,.14)}
+  .nav svg{width:18px;height:18px;stroke:var(--ink);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .nav.prev{left:8px}
+  .nav.next{right:8px}
+  .nav:disabled{opacity:.2;cursor:default}
+  .gal-bottom{padding:14px 16px 24px;text-align:center}
+  .gal-hint{display:block;font-size:11.5px;color:rgba(163,156,150,.65);margin-bottom:9px}
+  .gal-bottom a{
+    color:var(--accent-soft);font-size:12.5px;text-decoration:none;
+    border-bottom:1px solid rgba(226,183,160,.35);padding-bottom:2px;
+  }
+
+  /* ——— букінг ——— */
+  .booking{
+    padding:21px 18px;border-radius:var(--radius);
+    background:var(--card);border:1px solid var(--line);text-align:center;
+  }
+  .booking h2{font-family:'Playfair Display',serif;font-weight:500;font-size:18px}
+  .booking p{font-size:12.5px;color:var(--ink-soft);margin-top:7px;line-height:1.5;text-wrap:balance}
+  .btn{
+    display:inline-block;margin-top:17px;
+    padding:13px 30px;border:1px solid rgba(226,183,160,.28);border-radius:999px;
+    background:linear-gradient(140deg, var(--wine) 0%, var(--wine-deep) 100%);
+    color:#fff;font:inherit;font-size:14px;font-weight:600;cursor:pointer;
+    box-shadow:0 10px 26px rgba(126,22,47,.38);
+    transition:filter .2s ease, transform .2s ease, box-shadow .2s ease;
+  }
+  .btn:hover{filter:brightness(1.12);transform:translateY(-1px);box-shadow:0 14px 32px rgba(126,22,47,.5)}
+
+  /* ——— вікно вибору месенджера ——— */
+  .modal{position:fixed;inset:0;z-index:50;display:none;place-items:center;padding:24px}
+  .modal.open{display:grid}
+  .modal-bg{position:absolute;inset:0;background:rgba(7,5,6,.74);backdrop-filter:blur(7px)}
+  .sheet{
+    position:relative;width:100%;max-width:338px;
+    padding:24px 20px 18px;border-radius:20px;text-align:center;
+    background:linear-gradient(160deg,#1b1215,#0d0b0c);
+    border:1px solid rgba(226,183,160,.18);
+    box-shadow:0 30px 70px rgba(0,0,0,.7);
+    animation:rise .22s ease;
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
+  .sheet h3{font-family:'Playfair Display',serif;font-weight:500;font-size:19px}
+  .sheet .hint{font-size:12.5px;color:var(--ink-soft);margin-top:6px}
+  .choices{display:flex;flex-direction:column;gap:9px;margin-top:17px}
+  .choice{
+    display:flex;align-items:center;gap:12px;
+    padding:13px 15px;border-radius:13px;
+    background:var(--card);border:1px solid var(--line);
+    text-decoration:none;color:var(--ink);font-size:14px;font-weight:500;
+    transition:background .2s ease, border-color .2s ease, box-shadow .2s ease;
+  }
+  .choice:hover{background:rgba(243,237,230,.08);border-color:var(--brand);box-shadow:0 0 20px -8px var(--brand)}
+  .dot{width:9px;height:9px;border-radius:50%;flex:0 0 9px;background:var(--brand)}
+  .choice .arr{margin-left:auto;width:14px;height:14px;stroke:var(--ink-soft);fill:none;stroke-width:1.8}
+  .close{margin-top:15px;background:none;border:none;color:var(--ink-soft);font:inherit;font-size:12.5px;cursor:pointer;padding:6px 10px}
+  .close:hover{color:var(--ink)}
+
+  footer{margin-top:30px;text-align:center;font-size:11px;color:rgba(163,156,150,.6);letter-spacing:.04em}
+
+  @media (max-width:380px){
+    h1{font-size:27px}
+    .artist{margin-bottom:-38px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+  }
+</style>
+</head>
+<body>
+<main>
+
+  <section class="hero">
+    <div class="glow"></div>
+    <img class="artist" src="kristina.webp" alt="Крістіна Присяжнюк" width="700" height="717">
+    <h1>Крістіна Присяжнюк</h1>
+    <p class="tagline">Українська співачка й авторка пісень.<br>
+      Пісні про те, що відчуваєш,<br>
+      але не завжди вмієш сказати.</p>
+  </section>
+
+  <div class="links" id="links">
+    <div class="pill" id="pill"></div>
+
+    <a class="link" style="--brand:#1ed760" href="https://open.spotify.com/artist/5Z3jgozF3hwwIQI67WFTQR" target="_blank" rel="noopener">
+      <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M7.5 9.5c3-.8 6-.5 8.5.9M8 12.6c2.4-.6 4.8-.4 6.8.8M8.6 15.6c1.8-.4 3.6-.2 5.1.6"/></svg></div>
+      <div class="txt"><div class="name">Spotify</div><div class="meta">Усі релізи та плейлисти</div></div>
+      <svg class="chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+    </a>
+
+    <a class="link" style="--brand:#ff3b30" href="https://youtube.com/@krisprysiazhniuk" target="_blank" rel="noopener">
+      <div class="ico"><svg viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10.5 9.5l4.5 2.5-4.5 2.5z" stroke="none" style="fill:var(--c)"/></svg></div>
+      <div class="txt"><div class="name">YouTube</div><div class="meta">Кліпи та live-відео</div></div>
+      <svg class="chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+    </a>
+
+    <a class="link" style="--brand:#e1467c" href="https://www.instagram.com/kris_prisyazhnyuk" target="_blank" rel="noopener">
+      <div class="ico"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="16.8" cy="7.2" r=".9" stroke="none" style="fill:var(--c)"/></svg></div>
+      <div class="txt"><div class="name">Instagram</div><div class="meta">Щодня — про музику й життя</div></div>
+      <svg class="chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+    </a>
+
+    <a class="link" style="--brand:#25f4ee" href="https://www.tiktok.com/@krispris88" target="_blank" rel="noopener">
+      <div class="ico"><svg viewBox="0 0 24 24"><path d="M9.5 11.5a3.6 3.6 0 1 0 3.6 3.6V4.5c.6 2 2.2 3.2 4.4 3.4"/></svg></div>
+      <div class="txt"><div class="name">TikTok</div><div class="meta">Короткі відео та наживо</div></div>
+      <svg class="chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+    </a>
+
+    <button class="link" type="button" id="openGal" style="--brand:#e2b7a0">
+      <div class="ico"><svg viewBox="0 0 24 24"><path d="M14 3H7.5A1.5 1.5 0 0 0 6 4.5v15A1.5 1.5 0 0 0 7.5 21h9a1.5 1.5 0 0 0 1.5-1.5V7z"/><path d="M14 3v4.5H18"/></svg></div>
+      <div class="txt"><div class="name">Презентація артистки</div><div class="meta">5 сторінок — відкрити</div></div>
+      <svg class="chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+
+  </div>
+
+  <section class="booking">
+    <h2>Запросити на виступ</h2>
+    <button class="btn" id="openContact" type="button">Зв'язатися</button>
+  </section>
+
+  <footer>© 2026 Крістіна Присяжнюк</footer>
+
+</main>
+
+<div class="gal" id="gal" role="dialog" aria-modal="true" aria-label="Презентація артистки">
+  <div class="gal-top">
+    <span id="galCount">1 / 5</span>
+    <button class="gal-close" type="button" id="galClose">Закрити</button>
+  </div>
+  <div class="gal-stage" id="galStage">
+    <img id="galImg" alt="Сторінка презентації">
+  </div>
+  <button class="nav prev" type="button" id="galPrev" aria-label="Попередня сторінка">
+    <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>
+  </button>
+  <button class="nav next" type="button" id="galNext" aria-label="Наступна сторінка">
+    <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+  </button>
+  <div class="gal-bottom">
+    <span class="gal-hint">Торкніться сторінки, щоб збільшити</span>
+    <a href="presentation.pdf" target="_blank" rel="noopener">Відкрити як PDF</a>
+  </div>
+</div>
+
+<div class="modal" id="contactModal" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
+  <div class="modal-bg" data-close></div>
+  <div class="sheet">
+    <h3 id="contactTitle">Написати менеджеру</h3>
+    <p class="hint">Андрій — концерти, співпраця, преса</p>
+    <div class="choices">
+      <a class="choice" style="--brand:#29a9eb" href="https://t.me/+380503280161" target="_blank" rel="noopener">
+        <span class="dot"></span>Telegram
+        <svg class="arr" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+      <a class="choice" style="--brand:#7360f2" href="viber://chat?number=%2B380503280161" target="_blank" rel="noopener">
+        <span class="dot"></span>Viber
+        <svg class="arr" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+      <a class="choice" style="--brand:#25d366" href="https://wa.me/380503280161" target="_blank" rel="noopener">
+        <span class="dot"></span>WhatsApp
+        <svg class="arr" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+    <button class="close" type="button" data-close>Закрити</button>
+  </div>
+</div>
+
+<script>
+  /* підсвітка, що перестрибує за курсором або пальцем */
+  (function () {
+    var box = document.getElementById('links');
+    var pill = document.getElementById('pill');
+    var items = Array.prototype.slice.call(box.querySelectorAll('.link'));
+    var current = null;
+
+    function moveTo(el) {
+      if (!el || el === current) return;
+      if (current) current.classList.remove('on');
+      current = el;
+      el.classList.add('on');
+      pill.style.height = el.offsetHeight + 'px';
+      pill.style.transform = 'translateY(' + el.offsetTop + 'px)';
+      box.classList.add('active');
+    }
+    function clear() {
+      if (current) current.classList.remove('on');
+      current = null;
+      box.classList.remove('active');
+    }
+
+    items.forEach(function (el) {
+      el.addEventListener('pointerenter', function () { moveTo(el); });
+      el.addEventListener('focus', function () { moveTo(el); });
+    });
+    box.addEventListener('pointerleave', clear);
+    box.addEventListener('focusout', function (e) {
+      if (!box.contains(e.relatedTarget)) clear();
+    });
+
+    /* палець: підсвітка йде за дотиком уздовж списку */
+    function fromTouch(e) {
+      var t = e.touches[0];
+      if (!t) return;
+      var el = document.elementFromPoint(t.clientX, t.clientY);
+      while (el && el !== box && !el.classList.contains('link')) el = el.parentElement;
+      if (el && el.classList && el.classList.contains('link')) moveTo(el);
+    }
+    box.addEventListener('touchstart', fromTouch, {passive: true});
+    box.addEventListener('touchmove', fromTouch, {passive: true});
+    box.addEventListener('touchend', function () { setTimeout(clear, 450); }, {passive: true});
+
+    window.addEventListener('resize', function () {
+      if (current) {
+        pill.style.height = current.offsetHeight + 'px';
+        pill.style.transform = 'translateY(' + current.offsetTop + 'px)';
+      }
+    });
+  })();
+
+  /* галерея презентації */
+  (function () {
+    var gal = document.getElementById('gal');
+    var img = document.getElementById('galImg');
+    var count = document.getElementById('galCount');
+    var prev = document.getElementById('galPrev');
+    var next = document.getElementById('galNext');
+    var opener = document.getElementById('openGal');
+    var stage = document.getElementById('galStage');
+    var total = 5, i = 0;
+
+    function src(n) { return 'slide' + (n + 1) + '.webp'; }
+
+    function unzoom() { stage.classList.remove('zoomed'); stage.scrollTop = 0; stage.scrollLeft = 0; }
+
+    function show(n) {
+      i = Math.max(0, Math.min(total - 1, n));
+      unzoom();
+      img.src = src(i);
+      count.textContent = (i + 1) + ' / ' + total;
+      prev.disabled = i === 0;
+      next.disabled = i === total - 1;
+      if (i + 1 < total) { var pre = new Image(); pre.src = src(i + 1); }
+    }
+    function open() {
+      gal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      show(0);
+    }
+    function close() {
+      gal.classList.remove('open');
+      document.body.style.overflow = '';
+      unzoom();
+      opener.focus();
+    }
+
+    img.addEventListener('click', function () {
+      var was = stage.classList.toggle('zoomed');
+      if (was) {
+        requestAnimationFrame(function () {
+          stage.scrollLeft = (stage.scrollWidth - stage.clientWidth) / 2;
+        });
+      } else {
+        stage.scrollTop = 0; stage.scrollLeft = 0;
+      }
+    });
+
+    opener.addEventListener('click', open);
+    document.getElementById('galClose').addEventListener('click', close);
+    prev.addEventListener('click', function () { show(i - 1); });
+    next.addEventListener('click', function () { show(i + 1); });
+
+    document.addEventListener('keydown', function (e) {
+      if (!gal.classList.contains('open')) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') show(i - 1);
+      if (e.key === 'ArrowRight') show(i + 1);
+    });
+
+    /* гортання пальцем */
+    var x0 = null;
+    gal.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, {passive: true});
+    gal.addEventListener('touchend', function (e) {
+      if (x0 === null || stage.classList.contains('zoomed')) { x0 = null; return; }
+      var dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 45) show(dx < 0 ? i + 1 : i - 1);
+      x0 = null;
+    }, {passive: true});
+  })();
+
+  /* вікно вибору месенджера */
+  (function () {
+    var modal = document.getElementById('contactModal');
+    var opener = document.getElementById('openContact');
+
+    function open() {
+      modal.classList.add('open');
+      var first = modal.querySelector('.choice');
+      if (first) first.focus();
+    }
+    function close() {
+      modal.classList.remove('open');
+      opener.focus();
+    }
+
+    opener.addEventListener('click', open);
+    modal.addEventListener('click', function (e) {
+      if (e.target.hasAttribute('data-close')) close();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal.classList.contains('open')) close();
+    });
+  })();
+</script>
+</body>
+</html>
